@@ -2,7 +2,8 @@
     [CmdletBinding()]
     param(
         $Question,
-        $Choices
+        [array]$Choices,
+        $DefaultChoice
     )
     
     $ChoiceDescriptions = @()
@@ -12,7 +13,7 @@
 
     $options = [System.Management.Automation.Host.ChoiceDescription[]]$ChoiceDescriptions
 
-    $result = $host.ui.PromptForChoice("", $Question, $options, 0)
+    $result = $host.ui.PromptForChoice("", $Question, $options, $Choices.IndexOf($DefaultChoice))
     Write-Verbose "Index of result chosen: $result"
     Write-Verbose "Choice selected: $($Choices[$result])"
     $Choices[$result]
